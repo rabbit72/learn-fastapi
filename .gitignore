@@ -1,0 +1,9 @@
+.idea/
+.vscode
+.mypy_cache
+docker-stack.yml
+
+.env
+
+# MacOS
+.DS_Store
