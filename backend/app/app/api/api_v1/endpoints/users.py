@@ -27,7 +27,7 @@ def read_users(
     return users
 
 
-@router.post("/", response_model=schemas.User)
+@router.post("/", response_model=schemas.User, status_code=201)
 def create_user(
     *,
     db: Session = Depends(deps.get_db),
@@ -123,6 +123,11 @@ def read_user_by_id(
     Get a specific user by id.
     """
     user = crud.user.get(db, id=user_id)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="The user with this username does not exist in the system",
+        )
     if user == current_user:
         return user
     if not crud.user.is_superuser(current_user):

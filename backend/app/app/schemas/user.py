@@ -1,6 +1,9 @@
 from typing import Optional
+from datetime import datetime
 
 from pydantic import BaseModel, EmailStr
+
+from app.models.user import UserRole
 
 
 # Shared properties
@@ -15,6 +18,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     email: EmailStr
     password: str
+    type_: UserRole
 
 
 # Properties to receive via API on update
@@ -24,6 +28,7 @@ class UserUpdate(UserBase):
 
 class UserInDBBase(UserBase):
     id: Optional[int] = None
+    type_: UserRole = UserRole.student
 
     class Config:
         orm_mode = True
@@ -37,3 +42,5 @@ class User(UserInDBBase):
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str
+    created: datetime
+    updated: datetime
