@@ -10,8 +10,8 @@ if TYPE_CHECKING:
 
 
 class ProficiencyLevel(Enum):
-    beginner = 1
-    elemenary = 2
+    beginner = "beginner"
+    elemenary = "elementary"
 
 
 class GroupSessionWaitingList(Base):

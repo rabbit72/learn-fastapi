@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, DateTime, UniqueConstraint
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, DateTime, UniqueConstraint, Date
 from sqlalchemy.sql import func
 
 from app.db.base_class import Base
@@ -10,6 +10,7 @@ class IndividualLessonPlan(Base):
     id = Column(Integer, primary_key=True, index=True)
     student_id = Column(ForeignKey(User.id))
     teacher_id = Column(ForeignKey(User.id))
+    start_date = Column(Date, nullable=False)
 
     updated = Column(DateTime, onupdate=func.now())
     created = Column(DateTime, server_default=func.now())

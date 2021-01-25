@@ -21,6 +21,26 @@ def init_db(db: Session) -> None:
             email=settings.FIRST_SUPERUSER,
             password=settings.FIRST_SUPERUSER_PASSWORD,
             is_superuser=True,
-            type_=99,
+            type_="admin",
+        )
+        user = crud.user.create(db, obj_in=user_in)  # noqa: F841
+
+    student_email = "student1@learn-fastapi.com"
+    user = crud.user.get_by_email(db, email=student_email)
+    if not user:
+        user_in = schemas.UserCreate(
+            email=student_email,
+            password=settings.FIRST_SUPERUSER_PASSWORD,
+            type_="student",
+        )
+        user = crud.user.create(db, obj_in=user_in)  # noqa: F841
+
+    student_email = "student2@learn-fastapi.com"
+    user = crud.user.get_by_email(db, email=student_email)
+    if not user:
+        user_in = schemas.UserCreate(
+            email=student_email,
+            password=settings.FIRST_SUPERUSER_PASSWORD,
+            type_="student",
         )
         user = crud.user.create(db, obj_in=user_in)  # noqa: F841

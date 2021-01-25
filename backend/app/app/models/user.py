@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 
 class UserRole(Enum):
-    student = 1
-    teacher = 2
-    admin = 99
+    student = "student"
+    teacher = "teacher"
+    admin = "admin"
 
 
 class User(Base):

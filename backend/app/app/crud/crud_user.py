@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
-from app.models.user import User
+from app.models.user import User, UserRole
 from app.schemas.user import UserCreate, UserUpdate
 
 
@@ -51,6 +51,12 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
     def is_superuser(self, user: User) -> bool:
         return user.is_superuser
+
+    def is_student(self, user: User) -> bool:
+        return user.type_ == UserRole.student
+
+    def is_teacher(self, user: User) -> bool:
+        return user.type_ == UserRole.teacher
 
 
 user = CRUDUser(User)
